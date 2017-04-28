@@ -53,6 +53,12 @@ set val(transitiontime_11) 2.36			;#LEAP (802.11g)
 #set val(transitiontime_11) 3			;#Stargate (802.11b)
 
 
+############################  Varying nodes giving error
+set val(x) $x_dim
+set val(y) $y_dim
+############# Upper two lines was added to avoid error. Suggestion is from internet
+
+
 #puts "$MAC/802_11.dataRate_"
 Mac/802_15_4 set dataRate_ 11Mb
 

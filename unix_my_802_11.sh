@@ -8,6 +8,7 @@ array_num_node=(20 40 60 80 100)
 array_flow=(10 20 30 40 50)
 array_num_pack_per_sec=(100 200 300 400 500)
 array_con_mul=(1 2 3 4 5)
+array_var=("${array_num_node[@]}") 
 
 echo "" > $output_file
 
@@ -32,6 +33,7 @@ time_sim=10
 iteration=$(printf %.0f $iteration_float);
 
 r=$start
+idx=0
 
 while [ $r -le $end ]
 do
@@ -48,12 +50,12 @@ echo "                             EXECUTING $(($i+1)) th ITERATION"
 
 
 #                            CHNG PATH		1		######################################################
-ns naf_wireless_802_15_4_static_v1.tcl 5 5 5 5 5 # $dist_11 $pckt_size $pckt_per_sec $routing $time_sim
+ns naf_wireless_802_15_4_static_v1.tcl "${array_var[${idx}]}" 10 100 1 # $dist_11 $pckt_size $pckt_per_sec $routing $time_sim
 echo "SIMULATION COMPLETE. BUILDING STAT......"
 #awk -f rule_th_del_enr_tcp.awk 802_11_grid_tcp_with_energy_random_traffic.tr > math_model1.out
 #                            CHNG PATH		2		######################################################
 awk -f rule_wireless_udp.awk naf_wireless_802_15_4_static_v1.tr > awkOut.txt
-
+echo "awk file completed it work......"
 ok=1;
 while read val
 do
@@ -62,10 +64,11 @@ do
 
 
 	if [ "$l" == "1" ]; then
-		if [ `echo "if($val > 0.0) 1; if($val <= 0.0) 0" | bc` -eq 0 ]; then
-			ok=0;
-			break
-			fi	
+		# This if statement was causing error
+		#if [ `echo "if($val > 0.0) 1; if($val <= 0.0) 0" | bc` -eq 0 ]; then
+			#ok=0;
+			#break
+			#fi	
 		thr=$(echo "scale=5; $thr+$val/$iteration_float" | bc)
 #		echo -ne "throughput: $thr "
 	elif [ "$l" == "2" ]; then
@@ -172,6 +175,7 @@ echo -ne "Total energy consumption:        $t_energy " >> $output_file
 echo "" >> $output_file
 
 r=$(($r+1))
+idx=$(($idx+1))
 #######################################END A ROUND
 done
 
