@@ -4,6 +4,11 @@ for_graph_x="for_graph_x.txt"
 for_graph_y="for_graph_y.txt"
 for_graph_xy="for_graph_xy.txt"
 
+array_num_node=(20 40 60 80 100)
+array_flow=(10 20 30 40 50)
+array_num_pack_per_sec=(100 200 300 400 500)
+array_con_mul=(1 2 3 4 5)
+
 echo "" > $output_file
 
 iteration_float=5.0;
