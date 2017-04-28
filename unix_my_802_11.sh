@@ -1,7 +1,7 @@
 output_file_format="multi_radio_802_11_random";
 iteration_float=5.0;
 
-start=5
+start=1
 end=5
 
 hop_15_4=5
@@ -143,3 +143,4 @@ echo "" >> $output_file
 r=$(($r+1))
 #######################################END A ROUND
 done
+
