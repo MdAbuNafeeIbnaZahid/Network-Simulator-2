@@ -1,5 +1,8 @@
 output_file_format="multi_radio_802_11_random";
 output_file="final_sum.txt"
+for_graph_x="for_graph_x.txt"
+for_graph_y="for_graph_y.txt"
+for_graph_xy="for_graph_xy.txt"
 
 echo "" > $output_file
 
