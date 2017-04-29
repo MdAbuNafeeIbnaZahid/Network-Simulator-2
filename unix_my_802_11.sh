@@ -50,7 +50,7 @@ echo "                             EXECUTING $(($i+1)) th ITERATION"
 
 
 #                            CHNG PATH		1		######################################################
-ns naf_wireless_802_15_4_static_v1.tcl 8 10 100 1 # $dist_11 $pckt_size $pckt_per_sec $routing $time_sim
+ns naf_wireless_802_15_4_static_v1.tcl "${array_var[$r]}" 30 300 5  # $dist_11 $pckt_size $pckt_per_sec $routing $time_sim
 echo "SIMULATION COMPLETE. BUILDING STAT......"
 #awk -f rule_th_del_enr_tcp.awk 802_11_grid_tcp_with_energy_random_traffic.tr > math_model1.out
 #                            CHNG PATH		2		######################################################

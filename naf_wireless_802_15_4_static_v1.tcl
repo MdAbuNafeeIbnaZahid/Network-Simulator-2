@@ -217,8 +217,11 @@ for {set i 0} {$i < $num_node} {incr i} {
 
 puts "start assigning co-ordinates to nodes"
 for {set i 0} {$i < $num_node} {incr i} {
-	set x_pos [expr int($dx * $i)] ;#random settings
-	set y_pos [expr int($dy * $i)] ;#random settings
+	#set x_pos [expr int($dx * $i)] ;#random settings
+	#set y_pos [expr int($dy * $i)] ;#random settings
+	set x_pos [expr int($x_dim*rand())]
+	set y_pos [expr int($y_dim*rand())]
+	
 	
 	puts "$i $x_pos $y_pos"
 	puts ""
