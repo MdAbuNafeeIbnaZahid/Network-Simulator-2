@@ -16,18 +16,13 @@ set cbr_interval [expr 1.0/$cbr_pckt_per_sec] ;# ?????? 1 for 1 packets per seco
 #set cbr_interval 0.00005 ; #[expr 1/[lindex $argv 2]] ;# ?????? 1 for 1 packets per second and 0.1 for 10 packets per second
 set num_row [lindex $argv 0] ;#number of row
 set num_col [lindex $argv 0] ;#number of column
-set Tx 40
 set Tx_multiple [lindex $argv 3]
-set x_dim [expr $Tx_multiple*$Tx] ; #150 ; #[lindex $argv 1]
-set y_dim [expr $Tx_multiple*$Tx] ; # 150 ; #[lindex $argv 1]
 set time_duration 25 ; #[lindex $argv 5] ;#50
 set start_time 50 ;#100
 set parallel_start_gap 0.0
 set cross_start_gap 0.0
 set num_node [lindex $argv 0]
 set num_total_flow [lindex $argv 1]
-set dx [expr $x_dim/$num_node]
-set dy [expr $y_dim/$num_node]
 
 #################################
 #variable for internal use
@@ -54,8 +49,8 @@ set val(transitiontime_11) 2.36			;#LEAP (802.11g)
 
 
 ############################  Varying nodes giving error
-set val(x) $x_dim
-set val(y) $y_dim
+#set val(x) $x_dim
+#set val(y) $y_dim
 ############# Upper two lines was added to avoid error. Suggestion is from internet
 
 
@@ -79,6 +74,15 @@ Phy/WirelessPhy/802_15_4 set CSThresh_ $dist(40m)
 Phy/WirelessPhy/802_15_4 set RXThresh_ $dist(40m)
 
 #########  Lines from Tareq ended
+
+
+set Tx $dist(40m)
+set x_dim [expr $Tx_multiple*$Tx] ; #150 ; #[lindex $argv 1]
+set y_dim [expr $Tx_multiple*$Tx] ; # 150 ; #[lindex $argv 1]
+
+set dx [expr $x_dim/$num_node]
+set dy [expr $y_dim/$num_node]
+
 
 
 #puts "$MAC/802_11.dataRate_"
