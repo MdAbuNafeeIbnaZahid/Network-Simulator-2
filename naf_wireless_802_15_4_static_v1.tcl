@@ -10,14 +10,14 @@ if 0 {
 	
 ################################################################802.11 in Grid topology with cross folw
 set cbr_size 64 ; 
-set cbr_rate 11.0Mb
+set cbr_rate 200.0kb
 set cbr_pckt_per_sec [lindex $argv 2]
 set cbr_interval [expr 1.0/$cbr_pckt_per_sec] ;# ?????? 1 for 1 packets per second and 0.1 for 10 packets per second
 #set cbr_interval 0.00005 ; #[expr 1/[lindex $argv 2]] ;# ?????? 1 for 1 packets per second and 0.1 for 10 packets per second
 set num_row [lindex $argv 0] ;#number of row
 set num_col [lindex $argv 0] ;#number of column
 set Tx_multiple [lindex $argv 3]
-set time_duration 25 ; #[lindex $argv 5] ;#50
+set time_duration 3 ; #[lindex $argv 5] ;#50
 set start_time 50 ;#100
 set parallel_start_gap 0.0
 set cross_start_gap 0.0
@@ -47,12 +47,21 @@ set val(transitiontime_11) 2.36			;#LEAP (802.11g)
 #set val(transitionpower_11) 200e-3		;#Stargate (802.11b)	??????????????????????????????/
 #set val(transitiontime_11) 3			;#Stargate (802.11b)
 
+set val(nn) $num_node
 
 ############################  Varying nodes giving error
 #set val(x) $x_dim
 #set val(y) $y_dim
 ############# Upper two lines was added to avoid error. Suggestion is from internet
 
+
+
+
+
+#puts "$MAC/802_11.dataRate_"
+Mac/802_15_4 set syncFlag_ 1
+Mac/802_15_4 set dataRate_ 11Mb
+Mac/802_15_4 set dutyCycle_ cbr_interval
 
 
 ########  Lines from Tareq
@@ -72,11 +81,13 @@ set dist(35m) 1.56962e-07
 set dist(40m) 1.20174e-07
 Phy/WirelessPhy/802_15_4 set CSThresh_ $dist(40m)
 Phy/WirelessPhy/802_15_4 set RXThresh_ $dist(40m)
+Phy/WirelessPhy/802_15_4 set TXThresh_ $dist(40m)
 
 #########  Lines from Tareq ended
 
 
-set Tx $dist(40m)
+
+set Tx 40
 set x_dim [expr $Tx_multiple*$Tx] ; #150 ; #[lindex $argv 1]
 set y_dim [expr $Tx_multiple*$Tx] ; # 150 ; #[lindex $argv 1]
 
@@ -84,9 +95,6 @@ set dx [expr $x_dim/$num_node]
 set dy [expr $y_dim/$num_node]
 
 
-
-#puts "$MAC/802_11.dataRate_"
-Mac/802_15_4 set dataRate_ 11Mb
 
 #CHNG
 set num_parallel_flow 0 ;#[lindex $argv 0]	# along column
@@ -130,13 +138,10 @@ set val(mac) Mac/802_15_4 ;# MAC type
 set val(ifq) Queue/DropTail/PriQueue ;# interface queue type
 set val(ll) LL ;# link layer type
 set val(ant) Antenna/OmniAntenna ;# antenna model
-set val(ifqlen) 50 ;# max packet in ifq
+set val(ifqlen) 500 ;# max packet in ifq
 set val(rp) DSDV ; #[lindex $argv 4] ;# routing protocol
 
 
-Mac/802_15_4 set syncFlag_ 1
-
-Mac/802_15_4 set dutyCycle_ cbr_interval
 
 set nm naf_wireless_802_15_4_static_v1.nam
 set tr naf_wireless_802_15_4_static_v1.tr
@@ -179,6 +184,10 @@ if {$num_sink_flow > 0} { ;#sink
 #set val(prop)		Propagation/TwoRayGround
 #set prop	[new $val(prop)]
 
+
+
+create-god $val(nn)
+
 $ns_ node-config -adhocRouting $val(rp) -llType $val(ll) \
      -macType $val(mac)  -ifqType $val(ifq) \
      -ifqLen $val(ifqlen) -antType $val(ant) \
@@ -210,6 +219,9 @@ puts "start assigning co-ordinates to nodes"
 for {set i 0} {$i < $num_node} {incr i} {
 	set x_pos [expr int($dx * $i)] ;#random settings
 	set y_pos [expr int($dy * $i)] ;#random settings
+	
+	puts "$i $x_pos $y_pos"
+	puts ""
 	
 	$node_($i) set X_ $x_pos;
 	$node_($i) set Y_ $y_pos;
@@ -247,6 +259,8 @@ for {set i 0} {$i < $num_random_flow} {incr i} {
 	while {$null_node==$udp_node} {
 		set null_node [expr int($num_node*rand())] ;# dest node
 	}
+	puts "$udp_node $null_node"
+	puts ""
 	$ns_ attach-agent $node_($udp_node) $udp_($rt)
   	$ns_ attach-agent $node_($null_node) $null_($rt)
 	puts -nonewline $topofile "RANDOM:  Src: $udp_node Dest: $null_node\n"
