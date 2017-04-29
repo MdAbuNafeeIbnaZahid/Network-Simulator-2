@@ -16,7 +16,7 @@ set cbr_interval [expr 1.0/$cbr_pckt_per_sec] ;# ?????? 1 for 1 packets per seco
 #set cbr_interval 0.00005 ; #[expr 1/[lindex $argv 2]] ;# ?????? 1 for 1 packets per second and 0.1 for 10 packets per second
 set num_row [lindex $argv 0] ;#number of row
 set num_col [lindex $argv 0] ;#number of column
-set Tx 100
+set Tx 40
 set Tx_multiple [lindex $argv 3]
 set x_dim [expr $Tx_multiple*$Tx] ; #150 ; #[lindex $argv 1]
 set y_dim [expr $Tx_multiple*$Tx] ; # 150 ; #[lindex $argv 1]
@@ -57,6 +57,28 @@ set val(transitiontime_11) 2.36			;#LEAP (802.11g)
 set val(x) $x_dim
 set val(y) $y_dim
 ############# Upper two lines was added to avoid error. Suggestion is from internet
+
+
+
+########  Lines from Tareq
+set dist(5m)  7.69113e-06
+set dist(9m)  2.37381e-06
+set dist(10m) 1.92278e-06
+set dist(11m) 1.58908e-06
+set dist(12m) 1.33527e-06
+set dist(13m) 1.13774e-06
+set dist(14m) 9.81011e-07
+set dist(15m) 8.54570e-07
+set dist(16m) 7.51087e-07
+set dist(20m) 4.80696e-07
+set dist(25m) 3.07645e-07
+set dist(30m) 2.13643e-07
+set dist(35m) 1.56962e-07
+set dist(40m) 1.20174e-07
+Phy/WirelessPhy/802_15_4 set CSThresh_ $dist(40m)
+Phy/WirelessPhy/802_15_4 set RXThresh_ $dist(40m)
+
+#########  Lines from Tareq ended
 
 
 #puts "$MAC/802_11.dataRate_"
