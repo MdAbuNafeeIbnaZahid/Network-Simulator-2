@@ -32,8 +32,11 @@ BEGIN {
 	
 	total_retransmit = 0;
 	for (i=0; i<max_pckt; i++) {
-		retransmit[i] = 0;		
+		retransmit[i] = 0;
+		isSent[i] = 0;		
 	}
+	
+	
 
 }
 
@@ -54,20 +57,37 @@ BEGIN {
 	flow_id = $8;
 
 	src = $9;
+	
+	source_node = int(src); 
 
 	dst = $10;
+	
+	destination_node = int(dst);
 
 	seq_no = $11;
 
 	packet_id = $12;
 	
-	if ( action=="s" )
+
+	
+	if (time < rStartTime)
 	{
-		nSentPackets += 1 ;	rSentTime[ packet_id ] = time ;
+		rStartTime = time;
 	}
 	
-	if ( action=="r" )
+	if ( time > rEndTime )
 	{
+		rEndTime = time;
+	}
+	
+	if ( action=="+" && (from == source_node) )
+	{			
+		nSentPackets += 1 ;	rSentTime[ packet_id ] = time ;	
+	}
+	
+	if ( action=="r" && (to == destination_node) )
+	{
+		#printf("A packet is received \n");
 		nReceivedPackets += 1; 
 		nReceivedBytes += pktsize;
 		
@@ -82,6 +102,35 @@ BEGIN {
 		nDropPackets += 1;
 	}
 
+}
 
+
+END {
+
+	#printf("nSentPackets = %f\n", nSentPackets);
+	#printf("nReceivedPackets = %f\n", nReceivedPackets);
+	#printf("nReceivedBytes = %f\n", nReceivedBytes);
+	
+	rTime = rEndTime - rStartTime;
+	
+	#printf("rTime = %f\n", rTime);
+	
+	rThroughput = ( nReceivedBytes * 8.0 ) / rTime;
+	
+	rAverageDelay = 0
+	
+	if ( nReceivedPackets != 0 ) {
+		rAverageDelay = rTotalDelay / nReceivedPackets ;
+	}
+	
+	rPacketDeliveryRatio = nReceivedPackets / nSentPackets * 100 ;
+	rPacketDropRatio = nDropPackets / nSentPackets * 100;
+	
+	printf("%15.5f\n", rThroughput);
+	printf("%15.5f\n", rAverageDelay);
+	printf("%15.5f\n", rPacketDeliveryRatio);
+	printf("%15.5f\n", rPacketDropRatio);
+
+	
 
 }
