@@ -223,8 +223,8 @@ for {set i 0} {$i < $num_node} {incr i} {
 	set y_pos [expr int($y_dim*rand())]
 	
 	
-	puts "$i $x_pos $y_pos"
-	puts ""
+	#puts "$i $x_pos $y_pos"
+	#puts ""
 	
 	$node_($i) set X_ $x_pos;
 	$node_($i) set Y_ $y_pos;
@@ -262,8 +262,8 @@ for {set i 0} {$i < $num_random_flow} {incr i} {
 	while {$null_node==$udp_node} {
 		set null_node [expr int($num_node*rand())] ;# dest node
 	}
-	puts "$udp_node $null_node"
-	puts ""
+	#puts "$udp_node $null_node"
+	#puts ""
 	$ns_ attach-agent $node_($udp_node) $udp_($rt)
   	$ns_ attach-agent $node_($null_node) $null_($rt)
 	puts -nonewline $topofile "RANDOM:  Src: $udp_node Dest: $null_node\n"
