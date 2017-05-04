@@ -14,8 +14,8 @@ echo "" > $output_file
 
 iteration_float=5.0;
 
-start=1
-end=5
+start=0
+end=4
 
 hop_15_4=5
 dist_15_4=30
