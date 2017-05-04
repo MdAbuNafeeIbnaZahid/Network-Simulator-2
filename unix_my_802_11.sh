@@ -11,6 +11,7 @@ array_con_mul=(1 2 3 4 5)
 array_var=("${array_num_node[@]}") 
 
 echo "" > $output_file
+echo "" > $for_graph_xy
 
 iteration_float=5.0;
 
@@ -167,15 +168,24 @@ END
 
 #echo "After comment" >> $output_file
 
-echo -ne "Throughput:          $thr " >> $output_file
-echo -ne "AverageDelay:         $del " >> $output_file
-echo -ne "PacketDeliveryRatio:      $del_ratio " >> $output_file
-echo -ne "PacketDropRatio:      $dr_ratio " >> $output_file
-echo -ne "Total energy consumption:        $t_energy " >> $output_file
+echo "${array_var[$r]}" >> $output_file
+
+
+echo "Throughput:          $thr " >> $output_file
+echo "AverageDelay:         $del " >> $output_file
+echo "PacketDeliveryRatio:      $del_ratio " >> $output_file
+echo "PacketDropRatio:      $dr_ratio " >> $output_file
+echo "Total energy consumption:        $t_energy " >> $output_file
 echo "" >> $output_file
+
+#Now these echos are for generating graph
+echo "${array_var[$r]} $t_energy" >> $for_graph_xy
+
 
 r=$(($r+1))
 idx=$(($idx+1))
 #######################################END A ROUND
 done
+
+xgraph "$for_graph_xy"
 
