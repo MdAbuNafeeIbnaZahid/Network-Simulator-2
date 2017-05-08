@@ -60,15 +60,15 @@ puts "creating UDP agents and attaching them to random nodes"
 for {set i 0} {$i < $num_flow} {incr i} {
 	#create UDP agent
 	set udp_($i) [new Agent/UDP]
-	puts "UDP agent created"
+	#puts "UDP agent created"
 	
 	# select a random source node
 	set udp_node [expr int($num_node*rand())] ;# src node
-	puts "random src node selected"
+	#puts "random src node selected"
 	
 	# attach UDP agent to source node
 	$ns attach-agent $node_($udp_node) $udp_($i)
-	puts "attached UDP agent to source node"
+	#puts "attached UDP agent to source node"
 	
 	# create CBR traffic source	
 	set cbr_($i) [new Application/Traffic/CBR]
@@ -98,10 +98,10 @@ for {set i 0} {$i < $num_flow} {incr i} {
 	
 	#Connect the traffic source with the traffic sink
 	$ns connect $udp_($i) $null_($i)  
-	puts "traffic source is connected with the traffic sink"
-	puts ""
-	puts ""
-	puts ""
+	#puts "traffic source is connected with the traffic sink"
+	#puts ""
+	#puts ""
+	#puts ""
 }
 
 
