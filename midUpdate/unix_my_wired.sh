@@ -1,4 +1,3 @@
-output_file_format="multi_radio_802_11_random";
 output_file="final_sum.txt"
 for_graph_x="for_graph_x.txt"
 for_graph_y="for_graph_y.txt"
@@ -18,23 +17,9 @@ iteration_float=5.0;
 start=0
 end=4
 
-hop_15_4=5
-dist_15_4=30
-dist_11=$ expr $hop_15_4*$dist_15_4*2
-
-pckt_size=64
-pckt_per_sec=1000
-#pckt_interval=[expr 1 / $pckt_per_sec]
-#echo "INERVAL: $pckt_interval"
-
-routing=DSDV
-
-time_sim=10
-
 iteration=$(printf %.0f $iteration_float);
 
 r=$start
-idx=0
 
 while [ $r -le $end ]
 do
@@ -51,11 +36,11 @@ echo "                             EXECUTING $(($i+1)) th ITERATION"
 
 
 #                            CHNG PATH		1		######################################################
-ns naf_wireless_802_15_4_static_v1.tcl "${array_var[$r]}" 20 100 3  # $dist_11 $pckt_size $pckt_per_sec $routing $time_sim
+ns naf_wired_v1.tcl "${array_var[$r]}" 30 300  # $dist_11 $pckt_size $pckt_per_sec $routing $time_sim
 echo "SIMULATION COMPLETE. BUILDING STAT......"
 #awk -f rule_th_del_enr_tcp.awk 802_11_grid_tcp_with_energy_random_traffic.tr > math_model1.out
 #                            CHNG PATH		2		######################################################
-awk -f rule_wireless_udp.awk naf_wireless_802_15_4_static_v1.tr > awkOut.txt
+awk -f rule_wired_udp.awk naf_wired_v1.tr > awkOut.txt
 echo "awk file completed it work......"
 ok=1;
 while read val
@@ -75,19 +60,19 @@ do
 	elif [ "$l" == "2" ]; then
 		del=$(echo "scale=5; $del+$val/$iteration_float" | bc)
 #		echo -ne "delay: "
-	elif [ "$l" == "3" ]; then
+	elif [ "$l" == "9999" ]; then
 		s_packet=$(echo "scale=5; $s_packet+$val/$iteration_float" | bc)
 #		echo -ne "send packet: "
-	elif [ "$l" == "4" ]; then
+	elif [ "$l" == "9999" ]; then
 		r_packet=$(echo "scale=5; $r_packet+$val/$iteration_float" | bc)
 #		echo -ne "received packet: "
 	elif [ "$l" == "5" ]; then
 		d_packet=$(echo "scale=5; $d_packet+$val/$iteration_float" | bc)
 #		echo -ne "drop packet: "
-	elif [ "$l" == "6" ]; then
+	elif [ "$l" == "3" ]; then
 		del_ratio=$(echo "scale=5; $del_ratio+$val/$iteration_float" | bc)
 #		echo -ne "delivery ratio: "
-	elif [ "$l" == "7" ]; then
+	elif [ "$l" == "4" ]; then
 		dr_ratio=$(echo "scale=5; $dr_ratio+$val/$iteration_float" | bc)
 #		echo -ne "drop ratio: "
 	elif [ "$l" == "8" ]; then
@@ -175,11 +160,11 @@ echo "Throughput:          $thr " >> $output_file
 echo "AverageDelay:         $del " >> $output_file
 echo "PacketDeliveryRatio:      $del_ratio " >> $output_file
 echo "PacketDropRatio:      $dr_ratio " >> $output_file
-echo "Total energy consumption:        $t_energy " >> $output_file
+#echo "Total energy consumption:        $t_energy " >> $output_file
 echo "" >> $output_file
 
 #Now these echos are for generating graph
-echo "${array_var[$r]} $t_energy" >> $for_graph_xy
+echo "${array_var[$r]} $dr_ratio" >> $for_graph_xy
 
 
 r=$(($r+1))

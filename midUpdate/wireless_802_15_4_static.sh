@@ -1,17 +1,54 @@
-output_file_format="multi_radio_802_11_random";
-output_file="final_sum.txt"
-for_graph_x="for_graph_x.txt"
-for_graph_y="for_graph_y.txt"
-for_graph_xy="for_graph_xy.txt"
-
 array_num_node=(20 40 60 80 100)
 array_flow=(10 20 30 40 50)
 array_num_pack_per_sec=(100 200 300 400 500)
 array_con_mul=(1 2 3 4 5)
-array_var=("${array_num_node[@]}") 
 
-echo "" > $output_file
-echo "" > $for_graph_xy
+
+output_file_format="multi_radio_802_11_random";
+output_file="final_sum.txt"
+
+array_var=("${array_num_node[@]}") 
+varying_parameter="num_node"
+
+
+throughput_text="throughput vs $varying_parameter.txt"
+avg_delay_text="avg_delay vs $varying_parameter.txt"
+pack_delivery_ratio_text="pack_delivery_ratio vs $varying_parameter.txt"
+pack_drop_ratio_text="pack_drop_ratio vs $varying_parameter.txt"
+total_energy_consumption_text="total_energy_consumption vs $varying_parameter.txt"
+
+
+throughput_ps="throughput vs $varying_parameter.ps"
+avg_delay_ps="avg_delay vs $varying_parameter.ps"
+pack_delivery_ratio_ps="pack_delivery_ratio vs $varying_parameter.ps"
+pack_drop_ratio_ps="pack_drop_ratio vs $varying_parameter.ps"
+total_energy_consumption_ps="total_energy_consumption vs $varying_parameter.ps"
+
+
+
+echo "" > "$output_file"
+echo "" > "$throughput_text"
+echo "" > "$avg_delay_text"
+echo "" > "$pack_delivery_ratio_text"
+echo "" > "$pack_drop_ratio_text"
+echo "" > "$total_energy_consumption_text"
+
+
+echo "YUnitText: throughput" >> "$throughput_text"
+echo "YUnitText: avg_delay" >> "$avg_delay_text"
+echo "YUnitText: pack_delivery_ratio" >> "$pack_delivery_ratio_text"
+echo "YUnitText: pack_drop_ratio" >> "$pack_drop_ratio_text"
+echo "YUnitText: total_energy_consumption" >> "$total_energy_consumption_text"
+
+
+echo "XUnitText: "$varying_parameter"" >> "$throughput_text"
+echo "XUnitText: "$varying_parameter"" >> "$avg_delay_text"
+echo "XUnitText: "$varying_parameter"" >> "$pack_delivery_ratio_text"
+echo "XUnitText: "$varying_parameter"" >> "$pack_drop_ratio_text"
+echo "XUnitText: "$varying_parameter"" >> "$total_energy_consumption_text"
+
+
+
 
 iteration_float=5.0;
 
@@ -179,7 +216,7 @@ echo "Total energy consumption:        $t_energy " >> $output_file
 echo "" >> $output_file
 
 #Now these echos are for generating graph
-echo "${array_var[$r]} $t_energy" >> $for_graph_xy
+echo "${array_var[$r]} $t_energy" >> "$throughput_text"
 
 
 r=$(($r+1))
@@ -188,5 +225,5 @@ idx=$(($idx+1))
 done
 
 
-xgraph "$for_graph_xy"
+xgraph -device ps -o "$throughput_ps" "$throughput_text"
 
