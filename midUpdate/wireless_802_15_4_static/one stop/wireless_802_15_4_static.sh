@@ -1,3 +1,19 @@
+#########################################################################
+#########################################################################
+#########################################################################
+
+
+
+##############################################################
+
+#################   Varying number of nodes    ##################
+
+#######################################################################
+
+
+
+
+
 array_num_node=(20 40 60 80 100)
 array_flow=(10 20 30 40 50)
 array_num_pack_per_sec=(100 200 300 400 500)
@@ -7,8 +23,8 @@ array_con_mul=(1 2 3 4 5)
 output_file_format="multi_radio_802_11_random";
 output_file="final_sum.txt"
 
-array_var=("${array_num_pack_per_sec[@]}") 
-varying_parameter="num_pack_per_sec"
+array_var=("${array_num_node[@]}") 
+varying_parameter="num_node"
 
 
 throughput_text="throughput vs $varying_parameter.txt"
@@ -18,11 +34,23 @@ pack_drop_ratio_text="pack_drop_ratio vs $varying_parameter.txt"
 total_energy_consumption_text="total_energy_consumption vs $varying_parameter.txt"
 
 
+
+
+############  Naming ps files for graph  ############
 throughput_ps="throughput vs $varying_parameter.ps"
 avg_delay_ps="avg_delay vs $varying_parameter.ps"
 pack_delivery_ratio_ps="pack_delivery_ratio vs $varying_parameter.ps"
 pack_drop_ratio_ps="pack_drop_ratio vs $varying_parameter.ps"
 total_energy_consumption_ps="total_energy_consumption vs $varying_parameter.ps"
+
+
+##########  Naming pdf files for graphs
+throughput_pdf="throughput vs $varying_parameter.pdf"
+avg_delay_pdf="avg_delay vs $varying_parameter.pdf"
+pack_delivery_ratio_pdf="pack_delivery_ratio vs $varying_parameter.pdf"
+pack_drop_ratio_pdf="pack_drop_ratio vs $varying_parameter.pdf"
+total_energy_consumption_ps="total_energy_consumption vs $varying_parameter.pdf"
+
 
 
 
@@ -88,7 +116,7 @@ echo "                             EXECUTING $(($i+1)) th ITERATION"
 
 
 #                            CHNG PATH		1		######################################################
-ns naf_wireless_802_15_4_static_v1.tcl 60 20 100 3 "${array_var[$r]}" # $dist_11 $pckt_size $pckt_per_sec $routing $time_sim
+ns naf_wireless_802_15_4_static_v1.tcl "${array_var[$r]}" 30 300 3  # $dist_11 $pckt_size $pckt_per_sec $routing $time_sim
 echo "SIMULATION COMPLETE. BUILDING STAT......"
 #awk -f rule_th_del_enr_tcp.awk 802_11_grid_tcp_with_energy_random_traffic.tr > math_model1.out
 #                            CHNG PATH		2		######################################################
@@ -232,6 +260,7 @@ idx=$(($idx+1))
 done
 
 
+### drawing graphs in ps format from text data
 xgraph -device ps -o "$throughput_ps" "$throughput_text"
 xgraph -device ps -o "$avg_delay_ps" "$avg_delay_text"
 xgraph -device ps -o "$pack_delivery_ratio_ps" "$pack_delivery_ratio_text"

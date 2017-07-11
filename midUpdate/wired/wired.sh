@@ -10,8 +10,8 @@ array_num_pack_per_sec=(100 200 300 400 500)
 output_file_format="multi_radio_802_11_random";
 output_file="final_sum.txt"
 
-array_var=("${array_num_node[@]}")
-varying_parameter="num_node"
+array_var=("${array_num_pack_per_sec[@]}")
+varying_parameter="num_pack_per_sec"
 
 
 throughput_text="throughput vs $varying_parameter.txt"
