@@ -49,7 +49,7 @@ throughput_pdf="throughput vs $varying_parameter.pdf"
 avg_delay_pdf="avg_delay vs $varying_parameter.pdf"
 pack_delivery_ratio_pdf="pack_delivery_ratio vs $varying_parameter.pdf"
 pack_drop_ratio_pdf="pack_drop_ratio vs $varying_parameter.pdf"
-total_energy_consumption_ps="total_energy_consumption vs $varying_parameter.pdf"
+total_energy_consumption_pdf="total_energy_consumption vs $varying_parameter.pdf"
 
 
 
@@ -266,4 +266,24 @@ xgraph -device ps -o "$avg_delay_ps" "$avg_delay_text"
 xgraph -device ps -o "$pack_delivery_ratio_ps" "$pack_delivery_ratio_text"
 xgraph -device ps -o "$pack_drop_ratio_ps" "$pack_drop_ratio_text"
 xgraph -device ps -o "$total_energy_consumption_ps" "$total_energy_consumption_text"
+
+
+
+
+#####  creating graphs in pdf format from ps format
+ps2pdf "$throughput_ps" "$throughput_pdf"
+ps2pdf "$avg_delay_ps" "$avg_delay_pdf"
+ps2pdf "$pack_delivery_ratio_ps" "$pack_delivery_ratio_pdf"
+ps2pdf "$pack_drop_ratio_ps" "$pack_drop_ratio_pdf"
+ps2pdf "$total_energy_consumption_ps" "$total_energy_consumption_pdf"
+
+
+
+
+#####  deleting ps files
+rm "$throughput_ps"
+rm "$avg_delay_ps"
+rm "$pack_delivery_ratio_ps"
+rm "$pack_drop_ratio_ps"
+rm "$total_energy_consumption_ps"
 
