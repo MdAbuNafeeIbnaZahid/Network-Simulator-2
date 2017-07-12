@@ -62,11 +62,11 @@ echo "" > "$pack_drop_ratio_text"
 echo "" > "$total_energy_consumption_text"
 
 
-echo "YUnitText: throughput (bit/sec)" >> "$throughput_text"
-echo "YUnitText: avg_delay (sec)" >> "$avg_delay_text"
-echo "YUnitText: pack_delivery_ratio (%)" >> "$pack_delivery_ratio_text"
-echo "YUnitText: pack_drop_ratio (%)" >> "$pack_drop_ratio_text"
-echo "YUnitText: total_energy_consumption (joule)" >> "$total_energy_consumption_text"
+echo "YUnitText: throughput" >> "$throughput_text"
+echo "YUnitText: avg_delay" >> "$avg_delay_text"
+echo "YUnitText: pack_delivery_ratio" >> "$pack_delivery_ratio_text"
+echo "YUnitText: pack_drop_ratio" >> "$pack_drop_ratio_text"
+echo "YUnitText: total_energy_consumption" >> "$total_energy_consumption_text"
 
 
 echo "XUnitText: "$varying_parameter"" >> "$throughput_text"
@@ -78,7 +78,7 @@ echo "XUnitText: "$varying_parameter"" >> "$total_energy_consumption_text"
 
 
 
-iteration_float=1.0;
+iteration_float=5.0;
 
 start=0
 end=4
@@ -357,11 +357,11 @@ echo "" > "$pack_drop_ratio_text"
 echo "" > "$total_energy_consumption_text"
 
 
-echo "YUnitText: throughput (bit/sec)" >> "$throughput_text"
-echo "YUnitText: avg_delay (sec)" >> "$avg_delay_text"
-echo "YUnitText: pack_delivery_ratio (%)" >> "$pack_delivery_ratio_text"
-echo "YUnitText: pack_drop_ratio (%)" >> "$pack_drop_ratio_text"
-echo "YUnitText: total_energy_consumption (joule)" >> "$total_energy_consumption_text"
+echo "YUnitText: throughput" >> "$throughput_text"
+echo "YUnitText: avg_delay" >> "$avg_delay_text"
+echo "YUnitText: pack_delivery_ratio" >> "$pack_delivery_ratio_text"
+echo "YUnitText: pack_drop_ratio" >> "$pack_drop_ratio_text"
+echo "YUnitText: total_energy_consumption" >> "$total_energy_consumption_text"
 
 
 echo "XUnitText: "$varying_parameter"" >> "$throughput_text"
@@ -373,7 +373,7 @@ echo "XUnitText: "$varying_parameter"" >> "$total_energy_consumption_text"
 
 
 
-iteration_float=1.0;
+iteration_float=5.0;
 
 start=0
 end=4
@@ -654,11 +654,11 @@ echo "" > "$pack_drop_ratio_text"
 echo "" > "$total_energy_consumption_text"
 
 
-echo "YUnitText: throughput (bit/sec)" >> "$throughput_text"
-echo "YUnitText: avg_delay (sec)" >> "$avg_delay_text"
-echo "YUnitText: pack_delivery_ratio (%)" >> "$pack_delivery_ratio_text"
-echo "YUnitText: pack_drop_ratio (%)" >> "$pack_drop_ratio_text"
-echo "YUnitText: total_energy_consumption (joule)" >> "$total_energy_consumption_text"
+echo "YUnitText: throughput" >> "$throughput_text"
+echo "YUnitText: avg_delay" >> "$avg_delay_text"
+echo "YUnitText: pack_delivery_ratio" >> "$pack_delivery_ratio_text"
+echo "YUnitText: pack_drop_ratio" >> "$pack_drop_ratio_text"
+echo "YUnitText: total_energy_consumption" >> "$total_energy_consumption_text"
 
 
 echo "XUnitText: "$varying_parameter"" >> "$throughput_text"
@@ -670,7 +670,7 @@ echo "XUnitText: "$varying_parameter"" >> "$total_energy_consumption_text"
 
 
 
-iteration_float=1.0;
+iteration_float=5.0;
 
 start=0
 end=4
@@ -951,11 +951,11 @@ echo "" > "$pack_drop_ratio_text"
 echo "" > "$total_energy_consumption_text"
 
 
-echo "YUnitText: throughput (bit/sec)" >> "$throughput_text"
-echo "YUnitText: avg_delay (sec)" >> "$avg_delay_text"
-echo "YUnitText: pack_delivery_ratio (%)" >> "$pack_delivery_ratio_text"
-echo "YUnitText: pack_drop_ratio (%)" >> "$pack_drop_ratio_text"
-echo "YUnitText: total_energy_consumption (joule)" >> "$total_energy_consumption_text"
+echo "YUnitText: throughput" >> "$throughput_text"
+echo "YUnitText: avg_delay" >> "$avg_delay_text"
+echo "YUnitText: pack_delivery_ratio" >> "$pack_delivery_ratio_text"
+echo "YUnitText: pack_drop_ratio" >> "$pack_drop_ratio_text"
+echo "YUnitText: total_energy_consumption" >> "$total_energy_consumption_text"
 
 
 echo "XUnitText: "$varying_parameter"" >> "$throughput_text"
@@ -967,7 +967,7 @@ echo "XUnitText: "$varying_parameter"" >> "$total_energy_consumption_text"
 
 
 
-iteration_float=1.0;
+iteration_float=5.0;
 
 start=0
 end=4
